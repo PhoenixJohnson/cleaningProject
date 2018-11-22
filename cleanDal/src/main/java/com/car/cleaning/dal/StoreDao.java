@@ -15,10 +15,10 @@ import java.util.Optional;
 public class StoreDao {
 
     @Autowired
-    private StoreRepository repository;
+    private StoreRepository storeRepository;
 
     public Store findStoreById(Long storeId) {
-        Optional<Store> store = repository.findById(storeId);
+        Optional<Store> store = storeRepository.findById(storeId);
         return store.get();
 
     }

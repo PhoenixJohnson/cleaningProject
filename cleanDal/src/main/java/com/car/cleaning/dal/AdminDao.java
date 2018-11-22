@@ -15,10 +15,10 @@ import java.util.Optional;
 public class AdminDao {
 
     @Autowired
-    private AdminRepository repository;
+    private AdminRepository adminRepository;
 
     public Admin findAdminUserById(Long adminUserId) {
-        Optional<Admin> user = repository.findById(adminUserId);
+        Optional<Admin> user = adminRepository.findById(adminUserId);
         return user.get();
 
     }

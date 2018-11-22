@@ -15,10 +15,10 @@ import java.util.Optional;
 public class IncentiveDao {
 
     @Autowired
-    private IncentiveRepository repository;
+    private IncentiveRepository incentiveRepository;
 
     public Incentive findIncentiveById(Long incentiveId) {
-        Optional<Incentive> incentive = repository.findById(incentiveId);
+        Optional<Incentive> incentive = incentiveRepository.findById(incentiveId);
         return incentive.get();
 
     }

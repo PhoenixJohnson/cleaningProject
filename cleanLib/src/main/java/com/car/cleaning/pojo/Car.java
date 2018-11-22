@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by jiangyunfan on 2018/11/20.
@@ -29,7 +28,7 @@ public class Car {
     private int externalColor;
     private int internalColor;
     private int size;
-    private Map<String,String> additionalData;
+    private String additionalData;
     private Date creationDate;
     private Date lastModifiedDate;
 

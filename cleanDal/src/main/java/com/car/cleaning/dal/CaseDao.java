@@ -15,10 +15,10 @@ import java.util.Optional;
 public class CaseDao {
 
     @Autowired
-    private CaseRepository repository;
+    private CaseRepository caseRepository;
 
     public Case findCaseById(Long caseId) {
-        Optional<Case> caze = repository.findById(caseId);
+        Optional<Case> caze = caseRepository.findById(caseId);
         return caze.get();
 
     }

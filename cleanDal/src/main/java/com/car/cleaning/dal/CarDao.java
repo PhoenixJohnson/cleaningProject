@@ -15,10 +15,10 @@ import java.util.Optional;
 public class CarDao {
 
     @Autowired
-    private CarRepository repository;
+    private CarRepository carRepository;
 
     public Car findCarById(Long carId) {
-        Optional<Car> car = repository.findById(carId);
+        Optional<Car> car = carRepository.findById(carId);
         return car.get();
 
     }

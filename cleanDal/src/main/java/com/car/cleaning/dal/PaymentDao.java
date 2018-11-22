@@ -15,10 +15,10 @@ import java.util.Optional;
 public class PaymentDao {
 
     @Autowired
-    private PaymentRepository repository;
+    private PaymentRepository paymentRepository;
 
     public Payment findPaymentByid(Long paymentId) {
-        Optional<Payment> payment = repository.findById(paymentId);
+        Optional<Payment> payment = paymentRepository.findById(paymentId);
         return payment.get();
 
     }

@@ -15,10 +15,10 @@ import java.util.Optional;
 public class FacilityDao {
 
     @Autowired
-    private FacilityRepository repository;
+    private FacilityRepository facilityRepository;
 
     public Facility findFacilityById(Long facilityId) {
-        Optional<Facility> facility = repository.findById(facilityId);
+        Optional<Facility> facility = facilityRepository.findById(facilityId);
         return facility.get();
 
     }

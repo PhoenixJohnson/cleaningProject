@@ -15,10 +15,10 @@ import java.util.Optional;
 public class FlowDao {
 
     @Autowired
-    private FlowRepository repository;
+    private FlowRepository flowRepository;
 
     public Flow findFlowById(Long flowId) {
-        Optional<Flow> flow = repository.findById(flowId);
+        Optional<Flow> flow = flowRepository.findById(flowId);
         return flow.get();
 
     }
