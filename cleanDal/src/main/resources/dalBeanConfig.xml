@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="com.car.cleaning"/>
+    <jpa:repositories base-package="com.car.cleaning.dalinterface" entity-manager-factory-ref="emf"/>
+
+    <bean id="emf"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="packagesToScan" value="com.car.cleaning.pojo" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaDialect" ref="jpaDialect" />
+        <property name="dataSource" ref="dataSource" />
+
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--<prop key="spring.jpa.hibernate.use-new-id-generator-mappings">false</prop>-->
+                <prop key="hibernate.max_fetch_depth">3</prop>
+                <prop key="hibernate.jdbc.fetch_size">18</prop>
+                <prop key="hibernate.jdbc.batch_size">10</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+            </props>
+        </property>
+
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        </property>
+
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+          id="transactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+          p:database="MYSQL" />
+
+
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.cj.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://localhost:3306/car_clean</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>Infy@332</value>
+        </property>
+        <property name="defaultAutoCommit">
+            <value>true</value>
+        </property>
+        <property name="maxIdle">
+            <value>8</value>
+        </property>
+        <property name="maxWaitMillis">
+            <value>120000</value>
+        </property>
+    </bean>
+
+
+</beans>
