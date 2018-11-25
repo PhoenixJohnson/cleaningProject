@@ -55,7 +55,7 @@ public class User {
     @Column(columnDefinition = "TINYINT(1) default '0'")
     private int age;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 32, unique = true)
     private String phone;
 
     @Column(nullable = false, length = 256)
