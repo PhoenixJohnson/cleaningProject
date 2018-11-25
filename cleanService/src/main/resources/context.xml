@@ -4,6 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans
@@ -23,61 +24,11 @@
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <aop:aspectj-autoproxy/>
 
-    <context:component-scan base-package="com.car.cleaning"/>
-    <jpa:repositories base-package="com.car.cleaning.dalinterface" entity-manager-factory-ref="emf"/>
-
-    <bean id="emf"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="packagesToScan" value="com.car.cleaning.pojo" />
-        <property name="dataSource" ref="dataSource" />
-
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-            </props>
-        </property>
-
-        <property name="persistenceProvider">
-            <bean class="org.hibernate.jpa.HibernatePersistenceProvider"></bean>
-        </property>
-
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager" />
-
-    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
-          id="transactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+    <import resource="classpath*:dalBeanConfig.xml"/>
+    <aop:aspectj-autoproxy proxy-target-class="true" />
 
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName">
-            <value>com.mysql.jdbc.driver</value>
-        </property>
-        <property name="url">
-            <value>jdbc:mysql://localhost:3306/car_clean</value>
-        </property>
-        <property name="username">
-            <value>root</value>
-        </property>
-        <property name="password">
-            <value>Infy@332</value>
-        </property>
-        <property name="defaultAutoCommit">
-            <value>true</value>
-        </property>
-        <property name="maxIdle">
-            <value>8</value>
-        </property>
-        <property name="maxWaitMillis">
-            <value>120000</value>
-        </property>
-    </bean>
 
 
     <!--<mvc:resources location="/app" mapping="/pages/**"/>-->

@@ -3,10 +3,7 @@ package com.car.cleaning.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,10 +12,11 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@Table(name = "CC_Payment")
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long payId;
     private Long storeId;
     private Long userId;

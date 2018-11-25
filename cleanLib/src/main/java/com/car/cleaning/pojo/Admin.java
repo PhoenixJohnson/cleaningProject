@@ -3,10 +3,7 @@ package com.car.cleaning.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by jiangyunfan on 2018/11/20.
@@ -14,10 +11,11 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @Entity
+@Table(name = "CC_Admin")
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long adminId;
     private String password;
     private String roleList;
