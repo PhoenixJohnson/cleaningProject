@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false, insertable = false, updatable = false)
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userName;
 
     @Column(nullable = false)

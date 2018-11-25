@@ -29,4 +29,9 @@ public class UserDao {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public void deleteUserByName(String userName) {
+        userRepository.deleteByUserName(userName);
+    }
+
 }

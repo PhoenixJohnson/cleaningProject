@@ -28,6 +28,8 @@ public class UserDaoTest {
 
     @After
     public void tearDown() throws Exception {
+        userDao.deleteUserByName("slink");
+
     }
 
     @Test
@@ -48,5 +50,6 @@ public class UserDaoTest {
         System.out.println(userReturn.toString());
 
     }
+
 
 }
