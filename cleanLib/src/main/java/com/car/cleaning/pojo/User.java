@@ -64,12 +64,12 @@ public class User {
     @Column(nullable = false, length = 256)
     private String userPaymentAccount;
 
-    @Column(columnDefinition = "TINYINT(1) default '0'")
     @Min(0)
     @Max(2)
+    @Column(columnDefinition = "TINYINT(1) default '0'")
     private int active;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 

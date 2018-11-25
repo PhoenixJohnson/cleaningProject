@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.util.Date;
 
 /**
  * Created by jiangyunfan on 2018/11/20.
@@ -11,20 +14,59 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "CC_Case")
+@Table(name = "CC_Case", indexes = {
+
+        @Index(name="cc_case_payId_index",columnList = "payId"),
+        @Index(name="cc_case_storeId_index",columnList = "storeId"),
+        @Index(name="cc_case_userId_index",columnList = "userId"),
+        @Index(name="cc_case_carId_index",columnList = "carId"),
+        @Index(name="cc_case_facilityId_index",columnList = "facilityId"),
+        @Index(name="cc_case_serverId_index",columnList = "serverId"),
+        @Index(name="cc_case_caseType_index",columnList = "caseType"),
+        @Index(name="cc_case_creationDate_index",columnList = "creationDate"),
+        @Index(name="cc_case_lastModifiedDate_index",columnList = "lastModifiedDate")
+})
 public class Case {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long caseId;
+
+    @Column(nullable = false)
     private Long payId;
+
+    @Column(nullable = false)
     private Long storeId;
+
+    @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
     private Long carId;
+
+    @Column(nullable = false)
     private Long facilityId;
+
+    @Column(nullable = false)
     private Long serverId;
+
+    @Min(0)
+    @Max(9999)
+    @Column(columnDefinition = "TINYINT(4) default '0'", nullable = false)
     private int caseType;
+
+    @Column(length = 256, nullable = false)
     private String caseDesc;
+
+    @Column(columnDefinition = "BLOB")
     private String caseLog;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date creationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date lastModifiedDate;
 
 }
