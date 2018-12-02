@@ -3,9 +3,7 @@ package com.car.cleaning.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -27,7 +25,8 @@ import java.util.Date;
         @Index(name = "cc_user_creationDate_index", columnList = "creationDate DESC"),
         @Index(name = "cc_user_lastModifiedDate_index", columnList = "lastModifiedDate DESC"),
 })
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {

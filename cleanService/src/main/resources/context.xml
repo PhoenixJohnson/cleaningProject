@@ -26,7 +26,7 @@
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util.xsd">
 
-
+    <context:component-scan base-package="com.car.cleaning.pojo"/>
     <import resource="classpath*:dalBeanConfig.xml"/>
     <aop:aspectj-autoproxy/>
 
@@ -36,23 +36,24 @@
                 <property name="objectMapper">
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">
                         <!-- 处理responseBody 里面日期类型 -->
-                        <property name="dateFormat">
-                              <bean class="java.text.SimpleDateFormat">
-                                  <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-                              </bean>
-                          </property>
+                        <!--<property name="dateFormat">-->
+                              <!--<bean class="java.text.SimpleDateFormat">-->
+                                  <!--<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />-->
+                              <!--</bean>-->
+                          <!--</property>-->
                         <!-- 为null字段时不显示 -->
                         <property name="serializationInclusion">
                             <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
                         </property>
                         <property name="propertyNamingStrategy">
-                            <bean class="com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy" />
+                            <bean class="com.fasterxml.jackson.databind.PropertyNamingStrategy." />
                         </property>
                     </bean>
                 </property>
                 <property name="supportedMediaTypes">
                     <list>
                         <value>text/html;charset=UTF-8</value>
+                        <value>text/json;charset=UTF-8</value>
                         <value>application/json; charset=UTF-8</value>
                     </list>
                 </property>
