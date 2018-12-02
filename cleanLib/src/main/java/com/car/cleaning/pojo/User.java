@@ -1,6 +1,8 @@
 package com.car.cleaning.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,6 +28,8 @@ import java.util.Date;
         @Index(name = "cc_user_lastModifiedDate_index", columnList = "lastModifiedDate DESC"),
 })
 @ToString
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @Id

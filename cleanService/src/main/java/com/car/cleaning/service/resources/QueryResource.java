@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.Date;
 
 /**
  * Created by jiangyunfan on 2018/11/21.
@@ -22,7 +24,7 @@ public class QueryResource {
     private UserDao userDao;
 
     @RequestMapping(value= "/user", method = RequestMethod.POST)
-    public ResponseEntity<CommonResponse> createCCUser(User user) {
+    public ResponseEntity<CommonResponse> createCCUser(@RequestBody User user) {
         try{
             return new ResponseEntity<>(ResponseBuilder.buildResponseObj(userDao.createUser(user), true), HttpStatus.OK);
         }catch (Exception e) {
