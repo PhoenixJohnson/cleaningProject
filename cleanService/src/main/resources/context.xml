@@ -36,17 +36,10 @@
                 <property name="objectMapper">
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">
                         <!-- 处理responseBody 里面日期类型 -->
-                        <!--<property name="dateFormat">-->
-                              <!--<bean class="java.text.SimpleDateFormat">-->
-                                  <!--<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />-->
-                              <!--</bean>-->
-                          <!--</property>-->
-                        <!-- 为null字段时不显示 -->
-                        <property name="serializationInclusion">
-                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
-                        </property>
-                        <property name="propertyNamingStrategy">
-                            <bean class="com.fasterxml.jackson.databind.PropertyNamingStrategy." />
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
                         </property>
                     </bean>
                 </property>
