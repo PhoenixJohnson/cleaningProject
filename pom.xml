@@ -17,6 +17,7 @@
         <module>cleanAudit</module>
         <module>cleanPay</module>
         <module>cleanInterface</module>
+        <module>cleanSvcEngine</module>
     </modules>
 
     <properties>
@@ -92,6 +93,11 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>2.9.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.25</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
@@ -181,6 +187,11 @@
             <dependency>
                 <groupId>com.car.cleaning</groupId>
                 <artifactId>cleanConsole</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.car.cleaning</groupId>
+                <artifactId>cleanSvcEngine</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

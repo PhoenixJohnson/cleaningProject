@@ -29,7 +29,7 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
+public class User extends BaseBo{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

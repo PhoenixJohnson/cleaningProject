@@ -22,7 +22,7 @@ import java.util.HashMap;
         @Index(name="cc_car_creationDate_index",columnList = "creationDate"),
         @Index(name="cc_car_lastModifiedDate_index",columnList = "lastModifiedDate")
 })
-public class Car {
+public class Car extends BaseBo{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

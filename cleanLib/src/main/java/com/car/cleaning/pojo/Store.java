@@ -23,7 +23,7 @@ import java.util.Date;
         @Index(name="cc_store_creationDate_index", columnList = "creationDate"),
         @Index(name="cc_store_lastModifiedDate_index", columnList = "lastModifiedDate")
 })
-public class Store {
+public class Store extends BaseBo{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

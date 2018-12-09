@@ -19,7 +19,7 @@ import java.util.Date;
         @Index(name="cc_incentive_creationDate_index", columnList = "creationDate"),
         @Index(name="cc_incentive_lastModifiedDate_index", columnList = "lastModifiedDate")
 })
-public class Incentive {
+public class Incentive extends BaseBo{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

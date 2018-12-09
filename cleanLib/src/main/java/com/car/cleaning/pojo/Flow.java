@@ -29,7 +29,7 @@ import java.util.Date;
         @Index(name="cc_flow_creationDate_index", columnList = "creationDate"),
         @Index(name="cc_flow_lastModifiedDate_index", columnList = "lastModifiedDate")
 })
-public class Flow {
+public class Flow extends BaseBo{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
