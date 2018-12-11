@@ -15,7 +15,7 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/awesome-font.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
@@ -52,8 +52,8 @@
             <a class="btn btn-primary btn-block" href="index">登录</a>
           </form>
           <div class="text-center">
-            <a class="d-block small mt-3" href="register.jsp">注册新账户</a>
-            <a class="d-block small" href="forgot-password.jsp">忘记密码</a>
+            <a class="d-block small mt-3" href="register">注册新账户</a>
+            <a class="d-block small" href="forgot">忘记密码</a>
           </div>
         </div>
       </div>

@@ -54,9 +54,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <mvc:resources location="app/css/" mapping="/css/**"/>
-    <mvc:resources location="app/vendor/" mapping="/vendor/**"/>
-    <mvc:resources location="app/js/" mapping="/js/**"/>
+    <mvc:resources location="app/" mapping="/**"/>
     <mvc:default-servlet-handler/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
