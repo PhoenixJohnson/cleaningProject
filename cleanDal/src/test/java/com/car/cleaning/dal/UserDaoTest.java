@@ -1,6 +1,7 @@
 package com.car.cleaning.dal;
 
 
+import com.car.cleaning.dalinterface.UserRepository;
 import com.car.cleaning.pojo.User;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +21,7 @@ import java.util.Date;
 public class UserDaoTest {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -28,7 +29,7 @@ public class UserDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        userDao.deleteUserByName("slink");
+        userRepository.deleteByUserName("slink");
 
     }
 
@@ -46,7 +47,7 @@ public class UserDaoTest {
         user.setCreationDate(new Date());
         user.setLastModifiedDate(new Date());
 
-        User userReturn = userDao.createUser(user);
+        User userReturn = userRepository.save(user);
         System.out.println(userReturn.toString());
 
     }
