@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>com.car.cleaning</groupId>
+            <artifactId>cleanLib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.car.cleaning</groupId>
             <artifactId>cleanSvcEngine</artifactId>
         </dependency>
         <dependency>

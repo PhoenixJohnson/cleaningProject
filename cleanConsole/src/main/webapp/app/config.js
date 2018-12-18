@@ -16,35 +16,6 @@ xyx.constant('xyxUtil',
                     }).indexOf(obj[prop]) === pos;
             });
         },
-        getAdjustmentEbayDefault: function () {
-            return {
-                companyCode: [
-                    "0034"
-                ],
-                journalSource: [
-                    "PE",
-                    "PT"
-                ],
-                currency: [
-                    "USD"
-                ],
-                productId: [
-                    "N/A"
-                ],
-                profitCenter: [
-                    "50011"
-                ],
-                costCenter: [
-                    "1100000521"
-                ],
-                managerialCountryCode: [
-                    "N/A"
-                ],
-                paymentProcessor: [
-                    "ADYEN"
-                ]
-            }
-        },
         downloadSVG: function (fileName, noty) {
             var svg = $("#diagram").find('svg')[0];
             if (!svg) {
@@ -75,74 +46,7 @@ xyx.constant('xyxUtil',
             a.setAttribute('target', '_blank');
             a.dispatchEvent(evt);
         },
-        getSvgTitleScript: function (title) {
-            return "Title: " + title + "\n";
-        },
-        /**
-         * var balanceJournalPairs = { crList: [],drList: []};
-         * @param balanceJournalPairs
-         */
-        getSvgPairsScript: function (balanceJournalPairs) {
-            var tempDrawString = "";
-            for (var looper = 0; looper < balanceJournalPairs.crList.length; looper++) {
-                tempDrawString +=
-                    "Note left of " + balanceJournalPairs.crList[looper].accountCode +
-                    ": BatchId:" + balanceJournalPairs.crList[looper].batchId + "\\n"
-                    + "JNL Amount:" + balanceJournalPairs.crList[looper].amount + "\\n"
-                    + "JournalId:" + balanceJournalPairs.crList[looper].journalId + "\\n"
-                    + "CloseStatus:" + balanceJournalPairs.crList[looper].closedStatus + "\\n"
-                    + "LockStatus:" + balanceJournalPairs.crList[looper].lockedStatus + "\n" +
-                    balanceJournalPairs.crList[looper].accountCode +
-                    (balanceJournalPairs.crList[looper].fasSymbol == "JOB" ? " --> " : " -> ")
-                    + balanceJournalPairs.drList[looper].accountCode + ":" +
-                    balanceJournalPairs.crList[looper].journalType + "\\n" + balanceJournalPairs.crList[looper].creationDate + "\n" +
-                    "Note right of " + balanceJournalPairs.drList[looper].accountCode +
-                    ": BatchId:" + balanceJournalPairs.drList[looper].batchId + "\\n"
-                    + "JNL Amount:" + balanceJournalPairs.drList[looper].amount + "\\n"
-                    + "JournalId:" + balanceJournalPairs.drList[looper].journalId + "\\n"
-                    + "CloseStatus:" + balanceJournalPairs.drList[looper].closedStatus + "\\n"
-                    + "LockStatus:" + balanceJournalPairs.drList[looper].lockedStatus + "\n";
-            }
-            return tempDrawString;
-        },
-        getBasicAccountPicView: function (buyerId, ebayId, sellerId, processor) {
-            var drawString = "";
-            var accountViewSequenceList = [];
-            if (!buyerId && ebayId) {
-                accountViewSequenceList = [
-                    'EID.{ebayId}.POST_TXN.{processor}',
-                    'SID.{sellerId}._PENDING.{processor}',
-                    'SID.{sellerId}.PENDING.{processor}',
-                    'SID.{sellerId}._CASH_IN_SETTLED.{processor}',
-                    'SID.{sellerId}.CASH_IN_SETTLED.{processor}',
-                    'SID.{sellerId}._AVAILABLE.{processor}',
-                    'SID.{sellerId}.AVAILABLE.{processor}'
-                ];
-            }
-            if (!ebayId && buyerId)
-                accountViewSequenceList = [
-                    'BID.{buyerId}._CASH_IN.{processor}',
-                    'BID.{buyerId}.CASH_IN.{processor}',
-                    'SID.{sellerId}._PENDING.{processor}',
-                    'SID.{sellerId}.PENDING.{processor}',
-                    'SID.{sellerId}._CASH_IN_SETTLED.{processor}',
-                    'SID.{sellerId}.CASH_IN_SETTLED.{processor}',
-                    'SID.{sellerId}._AVAILABLE.{processor}',
-                    'SID.{sellerId}.AVAILABLE.{processor}'
-                ];
 
-            angular.forEach(accountViewSequenceList, function (accountCode) {
-                drawString += "participant " + accountCode.replace("{sellerId}", sellerId).replace("{processor}", processor);
-                if (ebayId) {
-                    drawString = drawString.replace("{ebayId}", ebayId);
-                }
-                if (buyerId) {
-                    drawString = drawString.replace("{buyerId}", buyerId);
-                }
-                drawString += "\n";
-            });
-            return drawString;
-        },
         upperCaseForFirstChar: function (inputString) {
             inputString = inputString.toLowerCase();
             var reg = /\b(\w)|\s(\w)/g;
