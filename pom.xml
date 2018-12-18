@@ -18,6 +18,7 @@
         <module>cleanPay</module>
         <module>cleanInterface</module>
         <module>cleanSvcEngine</module>
+        <module>cleanCore</module>
     </modules>
 
     <properties>

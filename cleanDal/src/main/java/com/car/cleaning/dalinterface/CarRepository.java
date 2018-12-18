@@ -24,7 +24,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
 
     List<Car> findCarsByCarAgeLessThanEqual(int age);
 
-    @Query(value = "SELECT c FROM Car c ORDER BY c.carId")
+    @Query(value = "SELECT o FROM Car o ORDER BY o.carId")
     Page<Car> findAllCarsWithPagination(Pageable pageable);
 
 

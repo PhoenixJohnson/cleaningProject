@@ -2,22 +2,18 @@ package com.car.cleaning.dal;
 
 
 import com.car.cleaning.dalinterface.CarRepository;
+import com.car.cleaning.pagination.CarPagination;
 import com.car.cleaning.pojo.Car;
-import com.car.cleaning.pojo.User;
-import com.car.cleaning.utilities.CleanPagination;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -60,7 +56,7 @@ public class CarDaoTest {
 
     @Test
     public void paginateCarList() throws Exception {
-        CleanPagination pageable = new CleanPagination();
+        CarPagination pageable = new CarPagination();
         Page<Car> cars = carRepository.findAllCarsWithPagination(pageable);
         for(Car car: cars.getContent()){
             System.out.println(car.toString());

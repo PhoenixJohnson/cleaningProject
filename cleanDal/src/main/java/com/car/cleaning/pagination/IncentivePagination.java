@@ -1,9 +1,9 @@
-package com.car.cleaning.utilities;
+package com.car.cleaning.pagination;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public class CleanPagination implements Pageable {
+public class IncentivePagination extends CleanPagination {
     @Override
     public int getPageNumber() {
         return 1;
@@ -21,7 +21,7 @@ public class CleanPagination implements Pageable {
 
     @Override
     public Sort getSort() {
-        return new Sort(Sort.Direction.ASC, "carId");
+        return new Sort(Sort.Direction.ASC, "incentiveId");
     }
 
     @Override
