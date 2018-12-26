@@ -40,9 +40,6 @@ public class Payment extends BaseBo{
     @Column(nullable = false)
     private Long carId;
 
-    @Column
-    private Long facilityId;
-
     @Column(length = 128)
     private String paymentMethod;
 

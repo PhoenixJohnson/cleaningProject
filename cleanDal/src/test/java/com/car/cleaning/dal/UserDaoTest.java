@@ -29,7 +29,7 @@ public class UserDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        userRepository.deleteByUserName("slink");
+//        userRepository.deleteByUserName("slink");
 
     }
 
@@ -42,6 +42,7 @@ public class UserDaoTest {
         user.setEmailAddress("cc@login.com");
         user.setPassword("121212");
         user.setActive(1);
+        user.setGuest(false);
         user.setUserName("slink");
         user.setUserPaymentAccount("cc@alipay.com");
         user.setCreationDate(new Date());

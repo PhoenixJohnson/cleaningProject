@@ -53,6 +53,8 @@ public class User extends BaseBo{
     @Column(columnDefinition = "TINYINT(1) default '1'")
     private int sex;
 
+    private boolean isGuest;
+
     @Min(0)
     @Max(200)
     @Column(columnDefinition = "TINYINT(1) default '0'")

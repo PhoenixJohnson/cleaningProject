@@ -17,5 +17,6 @@ public class PaymentBo {
     private List<FlowBo> flowBos;
     private UserBo user;
     private Store store;
+    private Incentive incentive;
 
 }
