@@ -207,6 +207,11 @@
             </dependency>
             <dependency>
                 <groupId>com.car.cleaning</groupId>
+                <artifactId>cleanCore</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.car.cleaning</groupId>
                 <artifactId>cleanAudit</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -3,6 +3,8 @@ package com.car.cleaning.core.manager;
 import com.car.cleaning.bo.FlowBo;
 import com.car.cleaning.bo.PaymentBo;
 import com.car.cleaning.bo.UserBo;
+import com.car.cleaning.common.Amount;
+import com.car.cleaning.common.PaymentMethod;
 import com.car.cleaning.core.validation.ValidationGateWay;
 import com.car.cleaning.core.validation.ValidationPhase;
 import com.car.cleaning.dalinterface.*;
@@ -55,6 +57,9 @@ public class PaymentManager {
     @Autowired
     private UserManager userManager;
 
+    @Autowired
+    private CarManager carManager;
+
     public PaymentBo findPaymentDetails(Long payId) {
 
         PaymentBo paymentBo = new PaymentBo();
@@ -94,35 +99,49 @@ public class PaymentManager {
     /**
      * 创建支付信息前，首先要确保信息取得渠道是否从业务角度可行
      * 从用户第一次扫二维码的时候，系统应该已经创建对应该台facility设备的session信息，之后用户的session会一直存在
-     * @param user user信息可以为空对象，之后会创建guest user，如果已经是用户，从扫二维码的时候get到用户信息，并且pass到session中
-     * @param car car信息如果是null，后台创建guest car，有车辆快照保存在服务器上。如果已经注册车辆信息，扫二维码时候get车辆信息，并且pass到session中
+     * @param userId user信息可以为空对象，之后会创建guest user，如果已经是用户，从扫二维码的时候get到用户信息，并且pass到session中
      * @param facilityId 静态二维码中包含字段
      * @param storeId 静态二维码中包含字段
      * @param payId 用户第一次扫描二维码为空，第二次扫二维码，会通过 facilityId + storeId + timestamp 来从session中获取payId（因为已经创建）
-     * @param paymentAccountId 用户扫描二维码的时候，由支付宝，微信或者第三方支付渠道提供付款者账户名
+     * @param paymentAccount 用户扫描二维码的时候，由支付宝，微信或者第三方支付渠道提供付款者账户名
      * @param incentiveId 优惠券id，非必要选项
-     * @param paymentMethod 支付方式，由支付扫码客户端提供
+     * @param paymentMethod 支付方式，由支付扫码客户端提供 - AliPay/PayPal/WeChatPay ...
+     * @param amount 支付金额
+     * @param carIndicator 车牌号，需要用来去创建car信息，后台创建guest car/find car
      * @return
      * @throws CleanException
      */
-    public PaymentBo createPaymentBo(User user, Car car, Long facilityId, Long storeId, Long payId, String paymentAccountId, Long incentiveId, String paymentMethod, Double amount) throws CleanException {
+    public PaymentBo createPaymentBo(Long userId, Long facilityId, Long storeId, Long payId, String paymentAccount, Long incentiveId, PaymentMethod paymentMethod, Amount amount, String carIndicator) throws CleanException {
         PaymentBo paymentBo = new PaymentBo();
         //TODO VALIDATION IN AOP
-        if (user == null || car == null || facilityId == null || storeId == null || car.getCarIndicator() == null) {
-            throw new CleanException(CleanErrorCode.VALIDATION_ERROR, "没有找到必要的关键字段，请确认传入参数是否有空值");
+        if (facilityId == null || storeId == null || carIndicator == null || amount == null || paymentAccount == null) {
+            throw new CleanException(CleanErrorCode.VALIDATION_ERROR, "没有找到必要的关键字段，请确认传入参数是否有正确或者为空值");
         }
-        //检查用户传递数据完整性
-        validationGateWay.validateCar(car, ValidationPhase.CREATE_PAYMENT);
-        //检查车辆信息完整信息
-        validationGateWay.validateUser(user, ValidationPhase.CREATE_PAYMENT);
+        //检查金额信息
+        validationGateWay.validateAmount(amount);
         //检查设备信息合法性
-        validationGateWay.validateFaciity(facilityId, ValidationPhase.CREATE_PAYMENT);
+        validationGateWay.validateFacility(facilityId, ValidationPhase.CREATE_PAYMENT);
         //检查店铺信息合法性
         validationGateWay.validateStore(storeId, ValidationPhase.CREATE_PAYMENT);
         //设置store 实体信息
         paymentBo.setStore(storeRepository.findById(storeId).get());
+        //动态生成User和car信息
+        User user;
+        if(userId == null) {
+            user = userManager.createGuestUserOnFly(paymentAccount);
+        } else {
+            user = userManager.findUserById(userId);
+        }
+        if(user == null) {
+            throw new CleanException(CleanErrorCode.VALIDATION_ERROR, "用户信息检索失败！");
+        }
+        Car car = carManager.createCarOnFly(carIndicator, user.getUserId());
+        //检查用户传递数据完整性
+        validationGateWay.validateCar(car, ValidationPhase.CREATE_PAYMENT);
+        //检查车辆信息完整信息
+        validationGateWay.validateUser(user, ValidationPhase.CREATE_PAYMENT);
         //查询用户与车辆相关信息
-        paymentBo.setUser(userManager.findOrCreateUser(user, car, paymentAccountId));
+        paymentBo.setUser(userManager.findOrCreateUserBo(user, car, paymentAccount));
         //查询优惠券信息，如果存在
         if(incentiveId != null) {
             paymentBo.setIncentive(incentiveRepository.findById(incentiveId).get());
@@ -133,10 +152,10 @@ public class PaymentManager {
             Payment payment = paymentRepository.save(createPayment(paymentBo.getUser().getUser().getUserId(),
                     paymentBo.getUser().getCurrentCar().getCarId(),
                     storeId,
-                    paymentMethod,
-                    paymentAccountId,
+                    paymentMethod.name(),
+                    paymentAccount,
                     paymentBo.getStore().getStorePaymentAccount(),
-                    amount,
+                    amount.getValue(),
                     paymentBo.getIncentive()));
             paymentBo.setFlowBos(flowManager.createFlow(user.getUserId(), car.getCarId(), storeId, facilityId, payment.getPayId()));
             paymentBo.setPayment(payment);

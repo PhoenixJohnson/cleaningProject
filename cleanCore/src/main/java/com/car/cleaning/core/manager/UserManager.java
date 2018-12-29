@@ -1,6 +1,7 @@
 package com.car.cleaning.core.manager;
 
 import com.car.cleaning.bo.UserBo;
+import com.car.cleaning.core.manager.builder.CommonConstant;
 import com.car.cleaning.dalinterface.UserRepository;
 import com.car.cleaning.pojo.Car;
 import com.car.cleaning.pojo.User;
@@ -20,11 +21,6 @@ import java.util.List;
 @Slf4j
 public class UserManager {
 
-
-    private static final String DEFAULT_PASSWORD = "12345678";
-    private static final String DEFAULT_PHONE_NUMBER = "12345678";
-    private static final String DEFAULT_EMAIL = "guest@CClean.com";
-
     @Autowired
     private UserRepository userRepository;
 
@@ -39,19 +35,36 @@ public class UserManager {
         guestUser.setActive(1);
         guestUser.setUserPaymentAccount(paymentAccount);
         guestUser.setUserName(UUIDGenerator.getUUID());
-        guestUser.setPassword(DEFAULT_PASSWORD);
-        guestUser.setPhone(DEFAULT_PHONE_NUMBER);
-        guestUser.setEmailAddress(DEFAULT_EMAIL);
+        guestUser.setPassword(CommonConstant.DEFAULT_PASSWORD);
+        guestUser.setPhone(CommonConstant.DEFAULT_PHONE_NUMBER);
+        guestUser.setEmailAddress(CommonConstant.DEFAULT_EMAIL);
         //TODO 如果保存用户失败，是否抛出异常
         userBo.setUser(userRepository.save(guestUser));
         //Guest用户只有一辆车，如果保存车辆信息失败，可以容忍错误。
-        Car carInfo = carManager.createCar(car);
+        Car carInfo = carManager.createOrUpdateCar(car);
         userBo.setCars(Arrays.asList(carInfo));
         userBo.setCurrentCar(carInfo);
         return userBo;
     }
 
-    public UserBo findOrCreateUser(User user, Car car, String paymentAccount) {
+    public User createGuestUserOnFly(String paymentAccount) {
+
+        User guestUser = new User();
+        guestUser.setGuest(true);
+        guestUser.setActive(1);
+        guestUser.setUserPaymentAccount(paymentAccount);
+        guestUser.setUserName(UUIDGenerator.getUUID());
+        guestUser.setPassword(CommonConstant.DEFAULT_PASSWORD);
+        guestUser.setPhone(CommonConstant.DEFAULT_PHONE_NUMBER);
+        guestUser.setEmailAddress(CommonConstant.DEFAULT_EMAIL);
+        return guestUser;
+    }
+
+    public User findUserById(Long userId) {
+        return userRepository.findById(userId).get();
+    }
+
+    public UserBo findOrCreateUserBo(User user, Car car, String paymentAccount) {
         User existUser = null;
         if(user.getUserId() != null) {
             existUser = userRepository.findById(user.getUserId()).get();
@@ -61,7 +74,7 @@ public class UserManager {
             return createGuestUserBo(car, paymentAccount);
         }
         //如果用户存在，需要找到所有相关信息，然后再返回
-        Car currentCar = carManager.createCar(car);
+        Car currentCar = carManager.createOrUpdateCar(car);
         List<Car> carList = carManager.findCarsByUserId(existUser.getUserId());
         if(!carList.contains(currentCar)) {
             carList.add(currentCar);

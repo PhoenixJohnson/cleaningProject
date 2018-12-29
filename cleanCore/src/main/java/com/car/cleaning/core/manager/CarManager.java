@@ -23,18 +23,18 @@ public class CarManager {
     @Autowired
     private ValidationGateWay validationGateWay;
 
-    public Car createCar(Car car) {
+    public Car createOrUpdateCar(Car car) {
 
         validationGateWay.validateCar(car, ValidationPhase.CREATE_GUEST_CAR);
         /*根据传入是否有Car id，如果有，从数据库先查询是否有车的信息，没有，将作为一个零时洗车，赋予一个车辆ID号，通过此ID号，可以用一种通用URL从远程服务器上获取该辆车的图像信息。
           但是，最理想的情况，是外部设备能够提前获取车辆车牌信息。
          */
         Car inputCar = null;
-        if(car.getCarId() != null) {
+        if (car.getCarId() != null) {
             //此处应该考虑网络超时原因，进行重试
             inputCar = carRepository.findById(car.getCarId()).get();
         }
-        if(inputCar == null) {
+        if (inputCar == null) {
             //如果车辆信息无法从数据库中查询，将进行guest Car的信息重建
             //1. 将传进来的主要car信息进行初步拷贝
             inputCar.setCarBrand(car.getCarBrand());
@@ -50,6 +50,14 @@ public class CarManager {
             return inputCar;
         }
 
+    }
+
+    public Car createCarOnFly(String carIndicator, Long userId) {
+
+        Car car = new Car();
+        car.setUserId(userId);
+        car.setCarIndicator(carIndicator);
+        return car;
     }
 
 

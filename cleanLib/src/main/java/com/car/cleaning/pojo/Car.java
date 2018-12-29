@@ -34,10 +34,10 @@ public class Car extends BaseBo{
     @Column(length = 32, nullable = false)
     private String carIndicator;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 32)
     private String carModel;
 
-    @Column(length = 64, nullable = false)
+    @Column(length = 64)
     private String carBrand;
 
     @Min(0)
@@ -45,7 +45,7 @@ public class Car extends BaseBo{
     @Column(columnDefinition = "TINYINT(2) default '0'")
     private int carAge;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 32)
     private String externalColor;
 
     @Column(length = 32)
