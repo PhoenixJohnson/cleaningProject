@@ -50,7 +50,7 @@ public class PaymentManagerTest {
      * @throws CleanException
      */
     public void testCreatePayment() throws CleanException {
-        PaymentBo paymentBo = paymentManager.createPaymentBo(1L,3L,2L,21L,"pay@alipay.com",null, PaymentMethod.ALIPAY,new Amount(30d,"RMB"),"沪C9Z778");
+        PaymentBo paymentBo = paymentManager.createPaymentBo(1L,3L,2L,null,"pay@alipay.com",null, PaymentMethod.ALIPAY,new Amount(30d,"RMB"),"沪C9Z778");
         Gson gson = new Gson();
         System.out.println(gson.toJson(paymentBo));
     }
