@@ -4,6 +4,9 @@ package com.car.cleaning.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -16,6 +19,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "CC_User", indexes = {
         @Index(name = "cc_user_sex_index", columnList = "sex"),
         @Index(name = "cc_user_phone_index", columnList = "phone"),
@@ -75,10 +79,12 @@ public class User extends BaseBo{
     private int active;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @Column(nullable = false)
     private Date lastModifiedDate;
 

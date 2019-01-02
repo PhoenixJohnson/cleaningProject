@@ -2,6 +2,9 @@ package com.car.cleaning.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -14,6 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "CC_Facility", indexes = {
         @Index(name="cc_facility_storeId_index", columnList = "storeId"),
         @Index(name="cc_facility_nextMaintainDays_index", columnList = "nextMaintainDays"),
@@ -45,7 +49,7 @@ public class Facility extends BaseBo {
 
     @Min(1)
     @Max(1000)
-    @Column(columnDefinition = "TINYINT(4) default '1'")
+    @Column(columnDefinition = "SMALLINT(4) default '1'")
     private int nextMaintainDays;
 
     @Temporal(TemporalType.DATE)
@@ -56,7 +60,7 @@ public class Facility extends BaseBo {
 
     @Min(0)
     @Max(999999)
-    @Column(columnDefinition = "TINYINT(6) default '0'")
+    @Column(columnDefinition = "SMALLINT(6) default '0'")
     private int employCount;
 
     @Temporal(TemporalType.DATE)
@@ -66,10 +70,12 @@ public class Facility extends BaseBo {
     private Date activeDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @Column(nullable = false)
     private Date lastModifiedDate;
 }

@@ -43,6 +43,16 @@ public class PaymentResource {
         }
     }
 
+    @RequestMapping(value= "/createPay", method = RequestMethod.POST)
+    public ResponseEntity<CommonResponse> createSession(@RequestBody PaymentWrapper request) {
+        try{
+            //TODO Gen Token and create session
+            return new ResponseEntity<>(ResponseBuilder.buildResponseObj(request, true), HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(ResponseBuilder.buildShortMessageResponse(e.getMessage(), false), HttpStatus.OK);
+        }
+    }
+
     @RequestMapping(value= "/pay", method = RequestMethod.GET)
     public ResponseEntity<CommonResponse> findPaymentById(@RequestParam Long paymentId) {
         try{

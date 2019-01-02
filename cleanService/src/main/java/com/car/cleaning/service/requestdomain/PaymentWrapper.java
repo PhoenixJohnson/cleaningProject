@@ -24,4 +24,5 @@ public class PaymentWrapper {
     //Optional
     private Long userId;
     private Amount amount;
+    private String token;
 }

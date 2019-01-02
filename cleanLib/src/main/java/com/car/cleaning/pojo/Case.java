@@ -2,6 +2,9 @@ package com.car.cleaning.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,6 +16,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "CC_Case", indexes = {
 
@@ -52,7 +56,7 @@ public class Case extends BaseBo {
 
     @Min(0)
     @Max(9999)
-    @Column(columnDefinition = "TINYINT(4) default '0'", nullable = false)
+    @Column(columnDefinition = "SMALLINT(4) default '0'", nullable = false)
     private int caseType;
 
     @Column(length = 256, nullable = false)
@@ -62,10 +66,12 @@ public class Case extends BaseBo {
     private String caseLog;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @Column(nullable = false)
     private Date lastModifiedDate;
 

@@ -14,6 +14,7 @@ import com.car.cleaning.pojo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class PaymentManager {
     private IncentiveRepository incentiveRepository;
 
     @Autowired
-    private StoreRepository storeRepository;
+    private StoreManager storeManager;
 
     @Autowired
     private ValidationGateWay validationGateWay;
@@ -82,7 +83,7 @@ public class PaymentManager {
             userBo.setUser(user);
 
             //找到店铺信息
-            Store store = storeRepository.findById(payment.getStoreId()).get();
+            Store store = storeManager.findStoreById(payment.getStoreId());
 
             //组装信息集合
             paymentBo.setFlowBos(flowBos);
@@ -111,6 +112,7 @@ public class PaymentManager {
      * @return
      * @throws CleanException
      */
+    @Transactional
     public PaymentBo createPaymentBo(Long userId, Long facilityId, Long storeId, Long payId, String paymentAccount, Long incentiveId, PaymentMethod paymentMethod, Amount amount, String carIndicator) throws CleanException {
         PaymentBo paymentBo = new PaymentBo();
         //TODO VALIDATION IN AOP
@@ -124,7 +126,7 @@ public class PaymentManager {
         //检查店铺信息合法性
         validationGateWay.validateStore(storeId, ValidationPhase.CREATE_PAYMENT);
         //设置store 实体信息
-        paymentBo.setStore(storeRepository.findById(storeId).get());
+        paymentBo.setStore(storeManager.findStoreById(storeId));
         //动态生成User和car信息
         User user;
         if(userId == null) {

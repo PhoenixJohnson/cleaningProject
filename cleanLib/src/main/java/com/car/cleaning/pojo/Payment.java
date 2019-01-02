@@ -2,6 +2,9 @@ package com.car.cleaning.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -14,6 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "CC_Payment", indexes = {
         @Index(name="cc_payment_storeId_index", columnList = "storeId"),
         @Index(name="cc_payment_userId_index", columnList = "userId"),
@@ -52,7 +56,7 @@ public class Payment extends BaseBo{
     @Column(precision = 4, scale = 2)
     private double payAmount;
 
-    @Column(nullable = false)
+    @Column
     private Long incentiveId;
 
     @Column(precision = 3, scale = 1)
@@ -69,17 +73,19 @@ public class Payment extends BaseBo{
 
     @Min(0)
     @Max(999)
-    @Column(columnDefinition = "TINYINT(3) default '0'")
+    @Column(columnDefinition = "SMALLINT(3) default '0'")
     private int payStatus;
 
     @Column(length = 8192)
     private String paymentExternalEndPoint;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @Column(nullable = false)
     private Date lastModifiedDate;
 

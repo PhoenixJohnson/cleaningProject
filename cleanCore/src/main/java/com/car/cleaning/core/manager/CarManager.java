@@ -35,6 +35,7 @@ public class CarManager {
             inputCar = carRepository.findById(car.getCarId()).get();
         }
         if (inputCar == null) {
+            inputCar = new Car();
             //如果车辆信息无法从数据库中查询，将进行guest Car的信息重建
             //1. 将传进来的主要car信息进行初步拷贝
             inputCar.setCarBrand(car.getCarBrand());
@@ -53,11 +54,15 @@ public class CarManager {
     }
 
     public Car createCarOnFly(String carIndicator, Long userId) {
-
-        Car car = new Car();
-        car.setUserId(userId);
-        car.setCarIndicator(carIndicator);
-        return car;
+        Car existCar = carRepository.findCarByCarIndicator(carIndicator);
+        if(existCar != null){
+            return existCar;
+        } else {
+            Car car = new Car();
+            car.setUserId(userId);
+            car.setCarIndicator(carIndicator);
+            return carRepository.save(car);
+        }
     }
 
 

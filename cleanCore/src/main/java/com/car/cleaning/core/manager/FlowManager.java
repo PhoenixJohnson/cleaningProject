@@ -39,9 +39,9 @@ public class FlowManager {
         List<FlowBo> flowBos = new ArrayList<>();
         if (paymentId != null && paymentId > 0) {
             flowBos.addAll(flowBuilder.buildFlowBo(flowRepository.findFlowsByPayId(paymentId)));
-        } else {
-            flowBos.add(createFlowBo(userId, carId, storeId, facilityId, paymentId));
         }
+        flowBos.add(createFlowBo(userId, carId, storeId, facilityId, paymentId));
+
         return flowBos;
     }
 

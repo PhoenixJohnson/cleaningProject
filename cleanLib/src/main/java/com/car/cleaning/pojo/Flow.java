@@ -2,6 +2,9 @@ package com.car.cleaning.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -14,6 +17,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "CC_Flow", indexes = {
         @Index(name="cc_flow_storeId_index", columnList = "storeId"),
         @Index(name="cc_flow_userId_index", columnList = "userId"),
@@ -77,10 +81,12 @@ public class Flow extends BaseBo{
     private Date flowDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @Column(nullable = false)
     private Date lastModifiedDate;
 
