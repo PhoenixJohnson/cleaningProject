@@ -26,7 +26,8 @@ import java.util.Date;
 public class Incentive extends BaseBo{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incentiveId_seq")
+    @SequenceGenerator(name="incentiveId_seq",allocationSize=1,initialValue=5000000,sequenceName="incentiveId_seq")
     private Long incentiveId;
 
     @Column(nullable = false)

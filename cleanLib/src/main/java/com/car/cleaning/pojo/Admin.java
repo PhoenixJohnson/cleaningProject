@@ -26,7 +26,8 @@ import java.util.Date;
 public class Admin extends BaseBo {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adminId_seq")
+    @SequenceGenerator(name="adminId_seq",allocationSize=1,initialValue=5000000,sequenceName="adminId_seq")
     private Long adminId;
 
     @Column(length = 512, nullable = false)

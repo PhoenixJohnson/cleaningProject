@@ -32,7 +32,8 @@ import java.util.Date;
 public class Facility extends BaseBo {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facilityId_seq")
+    @SequenceGenerator(name="facilityId_seq",allocationSize=1,initialValue=5000000,sequenceName="facilityId_seq")
     private Long facilityId;
 
     @Column(nullable = false)

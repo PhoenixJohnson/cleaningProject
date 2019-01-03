@@ -33,7 +33,8 @@ import java.util.Date;
 public class Case extends BaseBo {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caseId_seq")
+    @SequenceGenerator(name="caseId_seq",allocationSize=1,initialValue=5000000,sequenceName="caseId_seq")
     private Long caseId;
 
     @Column(nullable = false)

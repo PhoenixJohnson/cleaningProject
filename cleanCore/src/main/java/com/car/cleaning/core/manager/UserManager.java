@@ -2,6 +2,8 @@ package com.car.cleaning.core.manager;
 
 import com.car.cleaning.bo.UserBo;
 import com.car.cleaning.core.manager.builder.CommonConstant;
+import com.car.cleaning.core.validation.ValidationGateWay;
+import com.car.cleaning.core.validation.ValidationPhase;
 import com.car.cleaning.dalinterface.UserRepository;
 import com.car.cleaning.pojo.Car;
 import com.car.cleaning.pojo.User;
@@ -26,6 +28,9 @@ public class UserManager {
 
     @Autowired
     private CarManager carManager;
+
+    @Autowired
+    private ValidationGateWay validationGateWay;
 
     public UserBo createGuestUserBo(Car car, String paymentAccount) {
 
@@ -80,6 +85,32 @@ public class UserManager {
             carList.add(currentCar);
         }
         return new UserBo(existUser, currentCar, carList);
+
+    }
+
+    public User findOrCreateUser(User user) {
+
+        validationGateWay.validateUser(user, ValidationPhase.CREATE_USER);
+        try {
+            if (user.getUserId() != null) {
+                return userRepository.findById(user.getUserId()).get();
+            }
+        } catch (Exception e) {
+
+        }
+        User newUser = new User();
+        newUser.setEmailAddress(user.getEmailAddress());
+        newUser.setPhone(user.getPhone());
+        newUser.setPassword(user.getPassword());
+        newUser.setUserName(user.getUserName());
+        newUser.setUserPaymentAccount(user.getUserPaymentAccount());
+        newUser.setActive(user.getActive());
+        newUser.setGuest(false);
+        newUser.setAge(user.getAge());
+        newUser.setExternalLoginIndicator(user.getExternalLoginIndicator());
+        newUser.setSex(user.getSex());
+
+        return userRepository.save(newUser);
 
     }
 

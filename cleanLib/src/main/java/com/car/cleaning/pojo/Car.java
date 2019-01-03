@@ -29,7 +29,8 @@ import java.util.HashMap;
 public class Car extends BaseBo{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carId_seq")
+    @SequenceGenerator(name="carId_seq",allocationSize=1,initialValue=5000000,sequenceName="carId_seq")
     private Long carId;
 
     @Column(nullable = false)

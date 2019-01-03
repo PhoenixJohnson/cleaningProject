@@ -30,7 +30,8 @@ import java.util.Date;
 public class Store extends BaseBo{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "storeId_seq")
+    @SequenceGenerator(name="storeId_seq",allocationSize=1,initialValue=5000000,sequenceName="storeId_seq")
     private Long storeId;
 
     @Column(nullable = false)

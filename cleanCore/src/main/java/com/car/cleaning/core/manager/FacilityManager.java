@@ -26,11 +26,11 @@ public class FacilityManager {
     @Autowired
     private ValidationGateWay validationGateWay;
 
-    public Facility findOrCreateFacility(Facility facility, boolean forceCreate) {
+    public Facility findOrCreateFacility(Facility facility) {
 
         validationGateWay.validateFacility(facility, ValidationPhase.CREATE_FACILITY);
         try {
-            if (facility.getFacilityId() != null && !forceCreate) {
+            if (facility.getFacilityId() != null) {
                 return facilityRepository.findById(facility.getFacilityId()).get();
             }
         } catch (Exception e) {

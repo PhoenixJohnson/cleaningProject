@@ -29,12 +29,12 @@ public class StoreManager {
     @Autowired
     private ValidationGateWay validationGateWay;
 
-    public Store createOrUpdateStore(Store store, boolean forceCreate) {
+    public Store findOrUpdateStore(Store store) {
 
         validationGateWay.validateStore(store, ValidationPhase.CREATE_STORE);
         Store existStore = null;
         try {
-            if (store.getStoreId() != null && !forceCreate) {
+            if (store.getStoreId() != null) {
                 existStore = storeRepository.findById(store.getStoreId()).get();
                 return existStore;
             }

@@ -36,7 +36,8 @@ import java.util.Date;
 public class User extends BaseBo{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userId_seq")
+    @SequenceGenerator(name="userId_seq",allocationSize=1,initialValue=5000000,sequenceName="userId_seq")
     @Column(nullable = false, insertable = false, updatable = false)
     private Long userId;
 

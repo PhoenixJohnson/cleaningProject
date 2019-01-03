@@ -36,7 +36,8 @@ import java.util.Date;
 public class Flow extends BaseBo{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flowId_seq")
+    @SequenceGenerator(name="flowId_seq",allocationSize=1,initialValue=5000000,sequenceName="flowId_seq")
     private Long flowId;
 
     @Column(nullable = false)
