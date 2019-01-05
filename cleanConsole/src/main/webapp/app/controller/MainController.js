@@ -1,5 +1,5 @@
-xyx.controller('MainController', ['$cookies', "$window", 'ngTableParams', '$scope', '$uibModal', '$filter', '$rootScope', '$timeout', 'noty', '$location', 'xyxUtil', 'AuthService','$route',
-    function ($cookies, $window, ngTableParams, $scope, $uibModal, $filter, $rootScope, $timeout, noty, $location, fasConfig, AuthService,$route) {
+xyx.controller('MainController', ['$cookies', "$window", 'ngTableParams', '$scope', '$uibModal', '$filter', '$rootScope', '$timeout', 'noty', '$location', 'xyxUtil', 'AuthService', '$route', 'PaymentService','$interval',
+    function ($cookies, $window, ngTableParams, $scope, $uibModal, $filter, $rootScope, $timeout, noty, $location, fasConfig, AuthService, $route, PaymentService, $interval) {
 
         $scope.userName = "";
 
@@ -10,6 +10,60 @@ xyx.controller('MainController', ['$cookies', "$window", 'ngTableParams', '$scop
         $rootScope.filter_dict = {};
         $rootScope.sortByColumn = "";
         $rootScope.reverse = false;
+
+
+        $interval(function(){
+            PaymentService.getPaymentsRT({},function(response) {
+
+                /** @namespace response.responseObjList */
+                var res = response.responseObjList;
+                $rootScope.columns = [
+                    {
+                        field:"storeId",
+                        desc:"店铺Id"
+                    },
+                    {
+                        field:"userId",
+                        desc:"用户Id"
+                    },
+                    {
+                        field:"carId",
+                        desc:"车辆Id"
+                    },
+                    {
+                        field:"paymentMethod",
+                        desc:"支付方式"
+                    },
+                    {
+                        field:"userPaymentAccount",
+                        desc:"支付账号"
+                    },
+                    {
+                        field:"storePaymentAccount",
+                        desc:"店铺收款账户"
+                    },
+                    {
+                        field:"payAmount",
+                        desc:"支付金额"
+                    },
+                    {
+                        field:"incentiveAmount",
+                        desc:"优惠"
+                    },
+                    {
+                        field:"creationDate",
+                        desc:"支付时间"
+                    }
+                ];
+                $rootScope.data = res;
+                $rootScope.tableParams.reload();
+
+            }, function(error) {
+
+            });
+        },1000);
+
+
 
         $rootScope.changeSearchCondition = function (newCondition) {
             $rootScope.searchBy = newCondition;

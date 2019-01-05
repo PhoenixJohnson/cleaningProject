@@ -4,7 +4,7 @@
 serverLocation = window.location.origin;
 xyx.constant('xyxUtil',
     {
-        WEBROOTURL: serverLocation + '/cconsole/api/v1/',
+        WEBROOTURL: serverLocation + '/cconsole/api/',
         BASEURL: serverLocation + '/cconsole/',
         DEFAULT_PAGE_SIZE: 10,
         PRODUCTS_PAGE_SIZE: 10,

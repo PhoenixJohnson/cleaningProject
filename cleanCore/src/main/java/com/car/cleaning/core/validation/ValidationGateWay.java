@@ -1,14 +1,15 @@
 package com.car.cleaning.core.validation;
 
 import com.car.cleaning.common.Amount;
-import com.car.cleaning.pojo.Car;
-import com.car.cleaning.pojo.Facility;
-import com.car.cleaning.pojo.Store;
-import com.car.cleaning.pojo.User;
+import com.car.cleaning.pojo.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidationGateWay extends BaseValidation {
+
+    public void validateAdmin(Admin admin, ValidationPhase phase) {
+
+    }
 
     public void validateUser(Long userId, ValidationPhase phase) {
 

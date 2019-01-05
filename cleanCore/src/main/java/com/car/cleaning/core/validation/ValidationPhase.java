@@ -8,6 +8,7 @@ public enum ValidationPhase {
     CREATE_USER,
     CREATE_GUEST_CAR,
     CREATE_STORE,
-    CREATE_FACILITY
+    CREATE_FACILITY,
+    CREATE_ADMIN
 
 }

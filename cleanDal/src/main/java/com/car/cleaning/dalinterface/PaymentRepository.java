@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,10 @@ public interface PaymentRepository extends CrudRepository<Payment, Long> {
     List<Payment> findPaymentsByUserPaymentAccount(String userPaymentAccount);
 
     List<Payment> findPaymentsByStorePaymentAccount(String storePaymentAccount);
+
+    List<Payment> findPaymentsByCreationDateBetweenAndStoreId(Date startDate, Date endDate, Long storeId);
+
+    List<Payment> findPaymentsByCreationDateBetween(Date startDate, Date endDate);
 
     int countAllByPaymentMethod(String paymentMethod);
 

@@ -13,8 +13,12 @@ import java.util.List;
 public class CommonResponse {
 
     private Boolean success;
+    private Boolean redirect;
+    private String payload;
     private String shortMessage;
     private Object responseObj;
     private List<?> responseObjList;
+    private Boolean production;
+    private Integer count;
 
 }

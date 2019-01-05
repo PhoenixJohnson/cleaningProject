@@ -3,7 +3,7 @@ package com.car.cleaning.service.resources;
 import com.car.cleaning.dalinterface.UserRepository;
 import com.car.cleaning.pojo.User;
 import com.car.cleaning.rpc.CommonResponse;
-import com.car.cleaning.util.ResponseBuilder;
+import com.car.cleaning.rpc.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

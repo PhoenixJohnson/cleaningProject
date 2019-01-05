@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="MainController">
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -25,32 +25,47 @@
             流水信息
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                        <th>D</th>
-                        <th>E</th>
-                        <th>F</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                        <th>D</th>
-                        <th>E</th>
-                        <th>F</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
+            <div class="mt-5" ng-if="$root.data.length>0">
+                <h5>总览订单数量: {{$root.data.length}}</h5>
+            </div>
+            <div class="row mt-5" ng-show="$root.data.length>0">
+                <div class="col-md-12" style="overflow-x: scroll;">
+                    <table ng-table="$root.tableParams" class="table table-datatable table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th ng-repeat="column in $root.columns"
+                                class="text-left sortable"
+                                ng-click="$root.sortTable(column.field)"
+                                style="text-align: center;cursor: pointer;">{{column.desc}}
 
-                    </tbody>
-                </table>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th ng-repeat="column in $root.columns"
+                                class="text-left sortable">
+                                <input type="text" class="form-control" ng-if="column.field != 'info'"
+                                       dl-enter-key="$root.filterPress()"
+                                       ng-model="$root.filter_dict[column.field]"/>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr class="targetFoo" ng-repeat="data in $data">
+
+                            <td ng-repeat="column in $root.columns"
+                                style="text-align: left;color:black">
+                                <div ng-if="'info'!=column.field">
+                                    {{data[column.field]}}
+                                </div>
+                                <button ng-if="'info'== column.field" class="btn btn-default btn-primary"
+                                        ng-click="$root.getInfo(data)">Info
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="card-footer small text-muted">最后更新时间 2018/12/25 11:59 PM</div>

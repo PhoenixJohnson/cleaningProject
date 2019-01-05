@@ -26,8 +26,8 @@
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:component-scan base-package="com.car.cleaning.console"/>
-    <!--<import resource="classpath*:dalBeanConfig.xml"/>-->
+    <context:component-scan base-package="com.car.cleaning"/>
+    <import resource="classpath*:dalBeanConfig.xml"/>
     <aop:aspectj-autoproxy/>
 
     <mvc:annotation-driven>
