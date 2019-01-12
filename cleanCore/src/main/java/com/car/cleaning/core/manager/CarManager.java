@@ -23,7 +23,7 @@ public class CarManager {
     @Autowired
     private ValidationGateWay validationGateWay;
 
-    public Car createOrUpdateCar(Car car) {
+    public Car findOrUpdateCar(Car car) {
 
         validationGateWay.validateCar(car, ValidationPhase.CREATE_GUEST_CAR);
         /*根据传入是否有Car id，如果有，从数据库先查询是否有车的信息，没有，将作为一个零时洗车，赋予一个车辆ID号，通过此ID号，可以用一种通用URL从远程服务器上获取该辆车的图像信息。

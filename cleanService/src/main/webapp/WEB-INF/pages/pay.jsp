@@ -33,6 +33,23 @@
         </div>
       </div>
 
+      <div class="card mx-auto mt-5" style="width: 500px;">
+        <div class="card-body">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="payAccount">支付账户名</span>
+            </div>
+            <input type="text" class="form-control" placeholder="支付账户" aria-label="支付账户" aria-describedby="payAccount" ng-model="payAccount">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="carIndicator">车牌号</span>
+            </div>
+            <input type="text" class="form-control" placeholder="车牌号" aria-label="车牌号" aria-describedby="carIndicator" ng-model="carIndicator">
+          </div>
+        </div>
+      </div>
+
       <div class="card card-login mx-auto mt-5">
         <div class="card-body">
           <form>
@@ -44,7 +61,7 @@
               <li class="list-group-item" ng-class="selectedWashOpt.washMethod=='luxury'?'active':''" ng-click="changeMethod('luxury')">豪华冲洗
                 <span class="badge badge-pill badge-success">{{washOptions["luxury"].price}}元</span></li>
             </ul>
-            <a class="btn btn-primary btn-block mt-4" href="index">支付
+            <a class="btn btn-primary btn-block mt-4" ng-click="createPay()">支付
               <span class="badge badge-pill badge-primary" ng-if="selectedWashOpt.price">{{selectedWashOpt.price}}元</span></a>
           </form>
         </div>

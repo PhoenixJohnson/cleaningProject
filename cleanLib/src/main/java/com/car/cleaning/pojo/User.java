@@ -33,11 +33,11 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User extends BaseBo{
+public class User extends BaseBo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userId_seq")
-    @SequenceGenerator(name="userId_seq",allocationSize=1,initialValue=5000000,sequenceName="userId_seq")
+    @SequenceGenerator(name = "userId_seq", allocationSize = 1, initialValue = 5000000, sequenceName = "userId_seq")
     @Column(nullable = false, insertable = false, updatable = false)
     private Long userId;
 
@@ -65,7 +65,7 @@ public class User extends BaseBo{
     @Column(columnDefinition = "TINYINT(1) default '0'")
     private int age;
 
-    @Column(nullable = false, length = 32, unique = true)
+    @Column(nullable = false, length = 32)
     private String phone;
 
     @Column(nullable = false, length = 256)

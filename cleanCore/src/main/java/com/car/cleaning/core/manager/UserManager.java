@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class UserManager {
         //TODO 如果保存用户失败，是否抛出异常
         userBo.setUser(userRepository.save(guestUser));
         //Guest用户只有一辆车，如果保存车辆信息失败，可以容忍错误。
-        Car carInfo = carManager.createOrUpdateCar(car);
+        Car carInfo = carManager.findOrUpdateCar(car);
         userBo.setCars(Arrays.asList(carInfo));
         userBo.setCurrentCar(carInfo);
         return userBo;
@@ -62,7 +63,7 @@ public class UserManager {
         guestUser.setPassword(CommonConstant.DEFAULT_PASSWORD);
         guestUser.setPhone(CommonConstant.DEFAULT_PHONE_NUMBER);
         guestUser.setEmailAddress(CommonConstant.DEFAULT_EMAIL);
-        return guestUser;
+        return userRepository.save(guestUser);
     }
 
     public User findUserById(Long userId) {
@@ -79,10 +80,13 @@ public class UserManager {
             return createGuestUserBo(car, paymentAccount);
         }
         //如果用户存在，需要找到所有相关信息，然后再返回
-        Car currentCar = carManager.createOrUpdateCar(car);
-        List<Car> carList = carManager.findCarsByUserId(existUser.getUserId());
-        if(!carList.contains(currentCar)) {
-            carList.add(currentCar);
+        Car currentCar = carManager.findOrUpdateCar(car);
+        List<Car> carList = new ArrayList<>();
+        if(!existUser.isGuest()) {
+            carList = carManager.findCarsByUserId(existUser.getUserId());
+            if (!carList.contains(currentCar)) {
+                carList.add(currentCar);
+            }
         }
         return new UserBo(existUser, currentCar, carList);
 

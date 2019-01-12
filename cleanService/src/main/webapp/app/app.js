@@ -30,7 +30,8 @@ var xyxPay = angular.module('xyxPay',
         'ngCookies',
         'ngResource',
         'ui.bootstrap',
-        'ngRoute'
+        'ngRoute',
+        'notyModule'
     ]);
 
 

@@ -100,15 +100,16 @@ public class PaymentManager {
     /**
      * 创建支付信息前，首先要确保信息取得渠道是否从业务角度可行
      * 从用户第一次扫二维码的时候，系统应该已经创建对应该台facility设备的session信息，之后用户的session会一直存在
-     * @param userId user信息可以为空对象，之后会创建guest user，如果已经是用户，从扫二维码的时候get到用户信息，并且pass到session中
-     * @param facilityId 静态二维码中包含字段
-     * @param storeId 静态二维码中包含字段
-     * @param payId 用户第一次扫描二维码为空，第二次扫二维码，会通过 facilityId + storeId + timestamp 来从session中获取payId（因为已经创建）
+     *
+     * @param userId         user信息可以为空对象，之后会创建guest user，如果已经是用户，从扫二维码的时候get到用户信息，并且pass到session中
+     * @param facilityId     静态二维码中包含字段
+     * @param storeId        静态二维码中包含字段
+     * @param payId          用户第一次扫描二维码为空，第二次扫二维码，会通过 facilityId + storeId + timestamp 来从session中获取payId（因为已经创建）
      * @param paymentAccount 用户扫描二维码的时候，由支付宝，微信或者第三方支付渠道提供付款者账户名
-     * @param incentiveId 优惠券id，非必要选项
-     * @param paymentMethod 支付方式，由支付扫码客户端提供 - AliPay/PayPal/WeChatPay ...
-     * @param amount 支付金额
-     * @param carIndicator 车牌号，需要用来去创建car信息，后台创建guest car/find car
+     * @param incentiveId    优惠券id，非必要选项
+     * @param paymentMethod  支付方式，由支付扫码客户端提供 - AliPay/PayPal/WeChatPay ...
+     * @param amount         支付金额
+     * @param carIndicator   车牌号，需要用来去创建car信息，后台创建guest car/find car
      * @return
      * @throws CleanException
      */
@@ -129,12 +130,12 @@ public class PaymentManager {
         paymentBo.setStore(storeManager.findStoreById(storeId));
         //动态生成User和car信息
         User user;
-        if(userId == null) {
+        if (userId == null) {
             user = userManager.createGuestUserOnFly(paymentAccount);
         } else {
             user = userManager.findUserById(userId);
         }
-        if(user == null) {
+        if (user == null) {
             throw new CleanException(CleanErrorCode.VALIDATION_ERROR, "用户信息检索失败！");
         }
         Car car = carManager.createCarOnFly(carIndicator, user.getUserId());
@@ -144,13 +145,14 @@ public class PaymentManager {
         validationGateWay.validateUser(user, ValidationPhase.CREATE_PAYMENT);
         //查询用户与车辆相关信息
         paymentBo.setUser(userManager.findOrCreateUserBo(user, car, paymentAccount));
+
         //查询优惠券信息，如果存在
-        if(incentiveId != null) {
+        if (incentiveId != null) {
             paymentBo.setIncentive(incentiveRepository.findById(incentiveId).get());
         }
         //如果pay id有值，将查询所有相关flow，然后记录到本次create flow中。
         //如果pay id是空值，需要通过DB 占位首先创建一个待定的payment
-        if(payId == null || !paymentRepository.existsById(payId)) {
+        if (payId == null || !paymentRepository.existsById(payId)) {
             Payment payment = paymentRepository.save(createPayment(paymentBo.getUser().getUser().getUserId(),
                     paymentBo.getUser().getCurrentCar().getCarId(),
                     storeId,
@@ -179,7 +181,7 @@ public class PaymentManager {
         payment.setUserPaymentAccount(paymentAccountId);
         payment.setStorePaymentAccount(storePaymentId);
         payment.setPayAmount(amount);
-        if(incentive != null) {
+        if (incentive != null) {
             payment.setIncentiveId(incentive.getIncentiveId());
             payment.setIncentiveAmount(incentive.getIncentiveAmount());
         }

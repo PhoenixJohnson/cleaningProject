@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by jiangyunfan on 2018/11/21.
  */
 @Controller
-@RequestMapping("/cc/api/v1")
+@RequestMapping("/api/v1")
 public class PaymentResource {
 
     @Autowired
     private PaymentManager paymentManager;
 
-    @RequestMapping(value= "/pay", method = RequestMethod.POST)
+    @RequestMapping(value = "/pay", method = RequestMethod.POST)
     public ResponseEntity<CommonResponse> createOrUpdatePayment(@RequestBody PaymentWrapper request) {
-        try{
-            return new ResponseEntity<>(ResponseBuilder.buildResponseObj(paymentManager.createPaymentBo (
+        try {
+            return new ResponseEntity<>(ResponseBuilder.buildResponseObj(paymentManager.createPaymentBo(
                     request.getUserId(),
                     request.getFacilityId(),
                     request.getStoreId(),
@@ -38,26 +38,26 @@ public class PaymentResource {
                     PaymentMethod.valueOf(request.getPaymentMethod()),
                     request.getAmount(),
                     request.getCarIndicator()), true), HttpStatus.OK);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(ResponseBuilder.buildShortMessageResponse(e.getMessage(), false), HttpStatus.OK);
         }
     }
 
-    @RequestMapping(value= "/createPay", method = RequestMethod.POST)
+    @RequestMapping(value = "/createPay", method = RequestMethod.POST)
     public ResponseEntity<CommonResponse> createSession(@RequestBody PaymentWrapper request) {
-        try{
+        try {
             //TODO Gen Token and create session
             return new ResponseEntity<>(ResponseBuilder.buildResponseObj(request, true), HttpStatus.OK);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(ResponseBuilder.buildShortMessageResponse(e.getMessage(), false), HttpStatus.OK);
         }
     }
 
-    @RequestMapping(value= "/pay", method = RequestMethod.GET)
+    @RequestMapping(value = "/pay", method = RequestMethod.GET)
     public ResponseEntity<CommonResponse> findPaymentById(@RequestParam Long paymentId) {
-        try{
+        try {
             return new ResponseEntity<>(ResponseBuilder.buildResponseObj(paymentManager.findPaymentDetails(paymentId), true), HttpStatus.OK);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(ResponseBuilder.buildShortMessageResponse(e.getMessage(), false), HttpStatus.OK);
         }
     }

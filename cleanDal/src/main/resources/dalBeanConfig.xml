@@ -19,7 +19,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <!--<prop key="spring.jpa.hibernate.use-new-id-generator-mappings">false</prop>-->
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">18</prop>

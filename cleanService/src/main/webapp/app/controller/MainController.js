@@ -1,8 +1,10 @@
-xyxPay.controller('MainController', ["$window", '$scope', '$sce',
-    function ($window, $scope, $sce) {
+xyxPay.controller('MainController', ["$window", '$scope', '$sce', 'PayService', 'noty',
+    function ($window, $scope, $sce, PayService, noty) {
 
         $scope.deviceId = "18364GYY88NB001";
         $scope.buyDesc = $sce.trustAsHtml("<div style='text-align: center;'>请选择洗车项目<div>");
+        $scope.payAccount = "cleanTest@alipay.com";
+        $scope.carIndicator = "沪A66666";
         $scope.washOptions = {
             "simple": {
                 "washMethod": "simple",
@@ -35,6 +37,32 @@ xyxPay.controller('MainController', ["$window", '$scope', '$sce',
         $scope.changeMethod = function (method) {
             $scope.selectedWashOpt = $scope.washOptions[method];
             $scope.getWashDesc();
+        };
+
+        $scope.createPay = function () {
+
+            if (!$scope.selectedWashOpt.price) {
+                noty.show("请选择一种洗车方式然后再点击支付", "error");
+                return;
+            }
+
+            var payReq = {
+                facilityId: 5000000,
+                storeId: 5000000,
+                carIndicator: $scope.carIndicator,
+                paymentAccountId: $scope.payAccount,
+                paymentMethod: 'ALIPAY',
+                amount: {
+                    value: $scope.selectedWashOpt.price,
+                    currency: 'RMB'
+                }
+            };
+
+            PayService.pay(payReq, function (response) {
+                noty.show("支付成功", "success");
+            }, function (error) {
+                noty.show("支付失败", "error");
+            });
         }
 
     }]);

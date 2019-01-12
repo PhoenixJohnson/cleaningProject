@@ -4,7 +4,7 @@
 serverLocation = window.location.origin;
 xyxPay.constant('xyxUtil',
     {
-        WEBROOTURL: serverLocation + '/cconsole/api/v1/',
+        WEBROOTURL: serverLocation + '/csvc/api/v1/',
         BASEURL: serverLocation + '/cconsole/',
         DEFAULT_PAGE_SIZE: 10,
         PRODUCTS_PAGE_SIZE: 10,

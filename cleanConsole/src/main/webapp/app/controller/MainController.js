@@ -10,7 +10,64 @@ xyx.controller('MainController', ['$cookies', "$window", 'ngTableParams', '$scop
         $rootScope.filter_dict = {};
         $rootScope.sortByColumn = "";
         $rootScope.reverse = false;
+        $scope.totalAmount = 0;
+        $interval(function () {
+            $scope.now = new Date();
+        }, 1000);
 
+        $timeout(function(){
+            PaymentService.getPaymentsRT({},function(response) {
+
+                /** @namespace response.responseObjList */
+                var res = response.responseObjList;
+                angular.forEach(res,function(rec) {
+                    $scope.totalAmount += rec.payAmount;
+                });
+                $rootScope.columns = [
+                    {
+                        field:"storeId",
+                        desc:"店铺Id"
+                    },
+                    {
+                        field:"userId",
+                        desc:"用户Id"
+                    },
+                    {
+                        field:"carId",
+                        desc:"车辆Id"
+                    },
+                    {
+                        field:"paymentMethod",
+                        desc:"支付方式"
+                    },
+                    {
+                        field:"userPaymentAccount",
+                        desc:"支付账号"
+                    },
+                    {
+                        field:"storePaymentAccount",
+                        desc:"店铺收款账户"
+                    },
+                    {
+                        field:"payAmount",
+                        desc:"支付金额"
+                    },
+                    {
+                        field:"incentiveAmount",
+                        desc:"优惠"
+                    },
+                    {
+                        field:"creationDate",
+                        desc:"支付时间"
+                    }
+                ];
+                $rootScope.data = res;
+                $rootScope.tableParams.reload();
+
+            }, function(error) {
+
+            });
+        },1000);
 
         $interval(function(){
             PaymentService.getPaymentsRT({},function(response) {
@@ -61,7 +118,7 @@ xyx.controller('MainController', ['$cookies', "$window", 'ngTableParams', '$scop
             }, function(error) {
 
             });
-        },1000);
+        },20000);
 
 
 
