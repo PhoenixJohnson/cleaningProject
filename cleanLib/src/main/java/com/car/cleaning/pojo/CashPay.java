@@ -51,6 +51,14 @@ public class CashPay extends BaseBo{
     @Column(length = 128)
     private String invoiceDay;
 
+    //提现日期或者日期范围
+    @Column(length = 256)
+    private String cashPayDateSign;
+
+    //提现备注
+    @Column(length = 256)
+    private String cashComment;
+
     @Column(length = 256)
     private String storeCashAccount;
 

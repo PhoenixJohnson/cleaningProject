@@ -45,7 +45,6 @@ public class Store extends BaseBo{
     @Column(nullable = false)
     private String storeOwnerPhone;
 
-    @Column(nullable = false)
     private Long cashProtocolId;
 
     @Column(nullable = false)
