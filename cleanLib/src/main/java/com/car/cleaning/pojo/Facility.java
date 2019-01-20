@@ -24,6 +24,8 @@ import java.util.Date;
         @Index(name="cc_facility_lastMaintainDate_index", columnList = "lastMaintainDate"),
         @Index(name="cc_facility_employAmount_index", columnList = "employAmount"),
         @Index(name="cc_facility_employCount_index", columnList = "employCount"),
+        @Index(name="cc_facility_status_index", columnList = "status"),
+        @Index(name="cc_facility_netStatus_index", columnList = "netStatus"),
         @Index(name="cc_facility_manufactureDate_index", columnList = "manufactureDate"),
         @Index(name="cc_facility_activeDate_index", columnList = "activeDate"),
         @Index(name="cc_facility_creationDate_index", columnList = "creationDate"),
@@ -38,6 +40,10 @@ public class Facility extends BaseBo {
 
     @Column(nullable = false)
     private Long storeId;
+
+    //店铺名
+    @Column(length =128)
+    private String storeName;
 
     @Column(length =128)
     private String facilityModel;
@@ -56,8 +62,21 @@ public class Facility extends BaseBo {
     @Temporal(TemporalType.DATE)
     private Date lastMaintainDate;
 
+    //申请设备保证金
     @Column(precision = 6, scale = 2)
     private double employAmount;
+
+    /**
+     * 机器状态，运行良好、运行警告、运行错误
+     */
+    @Column(length = 32)
+    private String status;
+
+    /**
+     * 网络连接状态，网络不可用、网络良好
+     */
+    @Column(length = 32)
+    private String netStatus;
 
     @Min(0)
     @Max(999999)

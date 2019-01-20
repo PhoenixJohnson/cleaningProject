@@ -25,6 +25,7 @@ import java.util.Date;
         @Index(name="cc_flow_facilityId_index", columnList = "facilityId"),
         @Index(name="cc_flow_payId_index", columnList = "payId"),
         @Index(name="cc_flow_facilityMethod_index", columnList = "facilityMethod"),
+        @Index(name="cc_flow_cleaningStatus_index", columnList = "cleaningStatus"),
         @Index(name="cc_flow_awaitingTimePeriod_index", columnList = "awaitingTimePeriod"),
         @Index(name="cc_flow_enterTime_index", columnList = "enterTime"),
         @Index(name="cc_flow_leaveTime_index", columnList = "leaveTime"),
@@ -55,20 +56,39 @@ public class Flow extends BaseBo{
     @Column(nullable = false)
     private Long payId;
 
-    @Column(length = 256)
-    private String facilityMethod;
+    private Long facilityInstrumentId;
+
+    @Column(length = 128)
+    private String instrumentTag;
+
+    @Column(precision = 4, scale = 2)
+    private double amount;
+
+    @Column(length =128)
+    private double cleaningStatus;
 
     @Column(precision = 1, scale = 1)
     private float navigationTimePeriod;
 
-    @Column(precision = 1, scale = 1)
-    private float awaitingTimePeriod;
+    /**
+     * 洗车时长，根据所选择套餐类型定时长
+     */
+    @Min(1)
+    @Max(99)
+    @Column(columnDefinition = "TINYINT default '10'")
+    private int cleanTime;
 
+    /**
+     * 洗车开始时间
+     */
     @Temporal(TemporalType.TIMESTAMP)
-    private Date enterTime;
+    private Date startTime;
 
+    /**
+     * 预计洗车结束时间
+     */
     @Temporal(TemporalType.TIMESTAMP)
-    private Date leaveTime;
+    private Date endTime;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date executeTime;
@@ -78,8 +98,15 @@ public class Flow extends BaseBo{
     @Column(columnDefinition = "TINYINT(1) default '9'")
     private int score;
 
-    @Temporal(TemporalType.DATE)
-    private Date flowDate;
+//    @Temporal(TemporalType.DATE)
+    private String flowDate;
+
+    @Column(length = 128)
+    private String customerComment;
+
+
+    @Column(length = 64)
+    private String operator;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate

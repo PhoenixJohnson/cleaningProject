@@ -1,6 +1,6 @@
 package com.car.cleaning.dalinterface;
 
-import com.car.cleaning.pojo.Admin;
+import com.car.cleaning.pojo.CashProtocol;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -9,10 +9,10 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by jiangyunfan on 2018/11/20.
  */
-public interface AdminRepository extends CrudRepository<Admin, Long> {
+public interface CashProtocolRepository extends CrudRepository<CashProtocol, Long> {
 
-    @Query(value = "SELECT o FROM Admin o ORDER BY o.adminId")
-    Page<Admin> findAllAdminsWithPagination(Pageable pageable);
+    @Query(value = "SELECT o FROM CashProtocol o ORDER BY o.cashProtocolId")
+    Page<CashProtocol> findAllCashProtocolsWithPagination(Pageable pageable);
 
 
 }

@@ -20,6 +20,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "CC_Store", indexes = {
         @Index(name="cc_store_storeOwnerName_index", columnList = "storeOwnerName"),
+        @Index(name="cc_store_cashProtocolId_index", columnList = "cashProtocolId"),
         @Index(name="cc_store_active_index", columnList = "active"),
         @Index(name="cc_store_level_index", columnList = "level"),
         @Index(name="cc_store_storePaymentAccount_index", columnList = "storePaymentAccount"),
@@ -34,11 +35,18 @@ public class Store extends BaseBo{
     @SequenceGenerator(name="storeId_seq",allocationSize=1,initialValue=5000000,sequenceName="storeId_seq")
     private Long storeId;
 
+    //店铺名
+    @Column(length =128)
+    private String storeName;
+
     @Column(nullable = false)
     private String storeOwnerName;
 
     @Column(nullable = false)
     private String storeOwnerPhone;
+
+    @Column(nullable = false)
+    private Long cashProtocolId;
 
     @Column(nullable = false)
     private String storeAddress;

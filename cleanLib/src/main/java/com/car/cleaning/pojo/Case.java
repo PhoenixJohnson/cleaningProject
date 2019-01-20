@@ -55,6 +55,9 @@ public class Case extends BaseBo {
     @Column(nullable = false)
     private Long serverId;
 
+    /**
+     * 投诉、退款、意见、通知
+     */
     @Min(0)
     @Max(9999)
     @Column(columnDefinition = "SMALLINT(4) default '0'", nullable = false)

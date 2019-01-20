@@ -8,6 +8,7 @@ import com.car.cleaning.pojo.Flow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,13 +23,14 @@ public class FlowBuilder {
     private FacilityRepository facilityRepository;
 
     public Flow buildFlowByIds(Long userId, Long carId, Long storeId, Long facilityId, Long paymentId) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Flow flow = new Flow();
         flow.setUserId(userId);
         flow.setCarId(carId);
         flow.setFacilityId(facilityId);
         flow.setStoreId(storeId);
         flow.setPayId(paymentId);
-        flow.setFlowDate(new Date());
+        flow.setFlowDate(format.format(new Date()));
         return flowRepository.save(flow);
     }
 
