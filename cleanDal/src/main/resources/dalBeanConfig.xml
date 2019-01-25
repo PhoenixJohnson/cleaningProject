@@ -19,7 +19,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
                 <!--<prop key="spring.jpa.hibernate.use-new-id-generator-mappings">false</prop>-->
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">18</prop>
@@ -54,7 +54,7 @@
             <value>com.mysql.cj.jdbc.Driver</value>
         </property>
         <property name="url">
-            <value>jdbc:mysql://39.96.200.77:3306/car_cleaning</value>
+            <value>jdbc:mysql://localhost:3306/car_cleaning</value>
         </property>
         <property name="username">
             <value>root</value>
