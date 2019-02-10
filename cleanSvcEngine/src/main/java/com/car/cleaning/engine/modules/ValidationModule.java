@@ -1,5 +1,6 @@
 package com.car.cleaning.engine.modules;
 
+
 import com.car.cleaning.engine.domain.ModuleType;
 
 public abstract class ValidationModule<INPUT_OBJ> extends BaseModule {

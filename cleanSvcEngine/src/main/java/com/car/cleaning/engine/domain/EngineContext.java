@@ -1,7 +1,6 @@
 package com.car.cleaning.engine.domain;
 
-
-import com.car.cleaning.pojo.BaseBo;
+import com.car.cleaning.common.BaseObject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +11,11 @@ import java.util.Map;
 @Setter
 public class EngineContext {
 
-    private BaseBo inputObj;
+    private BaseObject inputObj;
     private LinkedHashMap<String, EngineOutput> outputChain;
     private Map<String, Object> context;
     private Object responseEntity;
+    private AuditClientInfo auditClientInfo;
+    private String refId;
 
 }

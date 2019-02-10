@@ -2,6 +2,6 @@ package com.car.cleaning.engine.domain;
 
 public enum ContextStepName {
 
-    REQUEST_VALIDATION, COMPOSING, SVC_CALL, NONE;
+    PRE_BUILDER, REQUEST_VALIDATION, COMPOSING, SVC_CALL, DUMMY,NONE;
 
 }

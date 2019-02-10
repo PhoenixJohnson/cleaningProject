@@ -3,14 +3,14 @@ package com.car.cleaning.engine.exception;
 public enum EngineErrorCode {
 
 
-    VALIDATION_ERROR(false, "Validation error", 400000),
-    CONFIG_ERROR(false, "Configuration error", 400001),
-    PAYLOAD_ERROR(false, "Payload Error.", 400002),
-    MODULE_HANDLING_ERROR(false, "Module handling error", 400003),
-    BIZ_VALIDATION_ERROR(false, "Validation error", 400004),
-    DB_EXCEPTION(false, "Database finding error", 400005),
-    SERVICE_REJECT_ERROR(false, "Server reject error", 400006),
-    RPC_ERROR(true, "RPC call related error.", 500002);
+    VALIDATION_ERROR(false, "Validation error", 400100),
+    CONFIG_ERROR(false, "Configuration error", 400200),
+    PAYLOAD_ERROR(false, "Payload Error", 400300),
+    MODULE_HANDLING_ERROR(false, "Module handling error", 400400),
+    BIZ_VALIDATION_ERROR(false, "Module Biz Validation error", 400500),
+    DB_EXCEPTION(false, "Database finding error", 400600),
+    SERVICE_REJECT_ERROR(false, "Server reject error", 400700),
+    GINGER_ERROR(true, "API related error", 500100);
 
     private final boolean needRetry;
     private final String description;

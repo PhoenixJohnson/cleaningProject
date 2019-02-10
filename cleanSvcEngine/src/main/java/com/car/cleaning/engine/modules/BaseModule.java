@@ -3,7 +3,7 @@ package com.car.cleaning.engine.modules;
 import com.car.cleaning.engine.domain.EngineContext;
 import com.car.cleaning.engine.domain.EngineOutput;
 import com.car.cleaning.engine.domain.ModuleType;
-import com.car.cleaning.engine.exception.SvcEngineException;
+import com.car.cleaning.engine.exception.CCSvcEngineException;
 import com.car.cleaning.engine.util.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +37,7 @@ public abstract class BaseModule {
         this.moduleHandlerId = moduleHandlerId;
     }
 
-    public abstract EngineOutput handle(EngineContext engineContext) throws SvcEngineException;
+    public abstract EngineOutput handle(EngineContext engineContext) throws CCSvcEngineException;
 
 
 
