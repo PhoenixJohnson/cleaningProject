@@ -34,10 +34,10 @@ public class AdminManager {
 
 
     public Admin findAdminInfoById(Long adminId) {
-        return adminRepository.findById(adminId).get();
+        return adminRepository.findById(adminId).orElse(null);
     }
 
     public String getRoleListByAdminId(Long adminId) {
-        return adminRepository.findById(adminId).get().getRoleList();
+        return adminRepository.findById(adminId).orElse(new Admin()).getRoleList();
     }
 }

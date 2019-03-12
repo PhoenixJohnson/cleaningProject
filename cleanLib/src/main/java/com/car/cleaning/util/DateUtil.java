@@ -1,11 +1,17 @@
 package com.car.cleaning.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by jiangyunfan on 2019/1/5.
  */
 public class DateUtil {
+
+
+    public static final String shortDateFormat = "yyyy-MM-dd";
 
     /**
      * 获取当前日期与周一相差的天数
@@ -142,5 +148,16 @@ public class DateUtil {
         }
         return today;
 
+    }
+
+    public static Date getDateFromString(String dateString, String pattern) {
+        try{
+            SimpleDateFormat sdf= new SimpleDateFormat(pattern);
+            Date date = sdf.parse(dateString);
+            return date;
+        }catch(ParseException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

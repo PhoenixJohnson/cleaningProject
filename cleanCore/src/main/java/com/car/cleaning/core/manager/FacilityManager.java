@@ -31,7 +31,7 @@ public class FacilityManager {
         validationGateWay.validateFacility(facility, ValidationPhase.CREATE_FACILITY);
         try {
             if (facility.getFacilityId() != null) {
-                return facilityRepository.findById(facility.getFacilityId()).get();
+                return facilityRepository.findById(facility.getFacilityId()).orElse(null);
             }
         } catch (Exception e) {
 

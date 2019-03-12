@@ -47,5 +47,9 @@ public class ValidationGateWay extends BaseValidation {
 
     }
 
+    public void validateCashProtocol(CashProtocol protocol, ValidationPhase phase) {
+
+    }
+
 
 }

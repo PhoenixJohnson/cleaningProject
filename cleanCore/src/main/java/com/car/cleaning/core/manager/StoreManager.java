@@ -5,6 +5,7 @@ import com.car.cleaning.core.manager.builder.CommonConstant;
 import com.car.cleaning.core.validation.ValidationGateWay;
 import com.car.cleaning.core.validation.ValidationPhase;
 import com.car.cleaning.dalinterface.StoreRepository;
+import com.car.cleaning.pojo.CashProtocol;
 import com.car.cleaning.pojo.Facility;
 import com.car.cleaning.pojo.Store;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,9 @@ public class StoreManager {
     private FacilityManager facilityManager;
 
     @Autowired
+    private CashProtManager cashProtManager;
+
+    @Autowired
     private ValidationGateWay validationGateWay;
 
     public Store findOrUpdateStore(Store store) {
@@ -35,14 +39,23 @@ public class StoreManager {
         Store existStore = null;
         try {
             if (store.getStoreId() != null) {
-                existStore = storeRepository.findById(store.getStoreId()).get();
+                existStore = storeRepository.findById(store.getStoreId()).orElse(null);
                 return existStore;
             }
         } catch (Exception e) {
 
         }
         Store newStore = new Store();
-        newStore.setActive(store.getActive());
+        if(store.getCashProtocolId() != null) {
+            CashProtocol cashProtocol = cashProtManager.findByProtocolId(store.getCashProtocolId());
+            if(cashProtocol!=null) {
+                newStore.setActive(1);
+            } else {
+                newStore.setActive(0);
+            }
+        } else {
+            newStore.setActive(0);
+        }
         newStore.setAuthAmount(store.getAuthAmount() > 0 ? store.getAuthAmount() : CommonConstant.STORE_DEFAULT_AUTH_MONEY);
         newStore.setLevel(store.getLevel() > 0 ? store.getLevel() : CommonConstant.STORE_DEFAULT_LEVEL);
         newStore.setRunPeriod(store.getRunPeriod());
@@ -59,7 +72,7 @@ public class StoreManager {
 
         StoreBo storeBo = new StoreBo();
         //TODO Not null if null, throw exception
-        Store store = storeRepository.findById(storeId).get();
+        Store store = storeRepository.findById(storeId).orElse(null);
         //Could be empty list
         List<Facility> facilities = facilityManager.findFacilitiesByStoreId(storeId);
         storeBo.setStore(store);
@@ -74,6 +87,6 @@ public class StoreManager {
 
 
     public Store findStoreById(Long storeId) {
-        return storeRepository.findById(storeId).get();
+        return storeRepository.findById(storeId).orElse(null);
     }
 }

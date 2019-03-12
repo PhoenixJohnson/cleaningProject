@@ -47,7 +47,7 @@ public class FlowManager {
 
     private FlowBo createFlowBo(Long userId, Long carId, Long storeId, Long facilityId, Long paymentId) throws CleanException {
         FlowBo flowBo = new FlowBo();
-        Facility facility = facilityRepository.findById(facilityId).get();
+        Facility facility = facilityRepository.findById(facilityId).orElse(null);
         if (facility == null) {
             throw new CleanException(CleanErrorCode.DB_EXCEPTION, String.format("没有从数据库中找到对应设备信息:%s，请管理员进行查看", String.valueOf(facilityId)));
         }

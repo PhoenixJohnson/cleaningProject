@@ -67,13 +67,13 @@ public class UserManager {
     }
 
     public User findUserById(Long userId) {
-        return userRepository.findById(userId).get();
+        return userRepository.findById(userId).orElse(null);
     }
 
     public UserBo findOrCreateUserBo(User user, Car car, String paymentAccount) {
         User existUser = null;
         if(user.getUserId() != null) {
-            existUser = userRepository.findById(user.getUserId()).get();
+            existUser = userRepository.findById(user.getUserId()).orElse(null);
         }
         if(existUser == null) {
             //如果用户不存在
@@ -97,7 +97,7 @@ public class UserManager {
         validationGateWay.validateUser(user, ValidationPhase.CREATE_USER);
         try {
             if (user.getUserId() != null) {
-                return userRepository.findById(user.getUserId()).get();
+                return userRepository.findById(user.getUserId()).orElse(null);
             }
         } catch (Exception e) {
 

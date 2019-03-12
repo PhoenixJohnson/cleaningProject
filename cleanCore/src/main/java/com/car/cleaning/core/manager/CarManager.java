@@ -5,6 +5,7 @@ import com.car.cleaning.core.validation.ValidationPhase;
 import com.car.cleaning.dalinterface.CarRepository;
 import com.car.cleaning.pojo.Car;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ public class CarManager {
         Car inputCar = null;
         if (car.getCarId() != null) {
             //此处应该考虑网络超时原因，进行重试
-            inputCar = carRepository.findById(car.getCarId()).get();
+            inputCar = carRepository.findById(car.getCarId()).orElse(null);
         }
         if (inputCar == null) {
             inputCar = new Car();
@@ -54,6 +55,12 @@ public class CarManager {
     }
 
     public Car createCarOnFly(String carIndicator, Long userId) {
+        if(StringUtils.isBlank(carIndicator)) {
+            Car car = new Car();
+            car.setUserId(userId);
+            car.setCarIndicator("dummycar" + userId);
+            return carRepository.save(car);
+        }
         Car existCar = carRepository.findCarByCarIndicator(carIndicator);
         if(existCar != null){
             return existCar;

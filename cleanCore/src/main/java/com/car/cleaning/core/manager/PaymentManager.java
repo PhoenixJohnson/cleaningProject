@@ -117,7 +117,7 @@ public class PaymentManager {
     public PaymentBo createPaymentBo(Long userId, Long facilityId, Long storeId, Long payId, String paymentAccount, Long incentiveId, PaymentMethod paymentMethod, Amount amount, String carIndicator) throws CleanException {
         PaymentBo paymentBo = new PaymentBo();
         //TODO VALIDATION IN AOP
-        if (facilityId == null || storeId == null || carIndicator == null || amount == null || paymentAccount == null) {
+        if (facilityId == null || storeId == null || amount == null || paymentAccount == null) {
             throw new CleanException(CleanErrorCode.VALIDATION_ERROR, "没有找到必要的关键字段，请确认传入参数是否有正确或者为空值");
         }
         //检查金额信息
