@@ -1,5 +1,6 @@
 package com.car.cleaning.bo;
 
+import com.car.cleaning.pojo.CashProtocol;
 import com.car.cleaning.pojo.Facility;
 import com.car.cleaning.pojo.Store;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.util.List;
 public class StoreBo {
 
     private Store store;
+    private CashProtocol cashProtocol;
     private List<Facility> facilities;
 
 }

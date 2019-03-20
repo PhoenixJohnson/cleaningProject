@@ -73,6 +73,9 @@ public class StoreManager {
         StoreBo storeBo = new StoreBo();
         //TODO Not null if null, throw exception
         Store store = storeRepository.findById(storeId).orElse(null);
+        if(store.getCashProtocolId() != null && store.getCashProtocolId() >0) {
+            storeBo.setCashProtocol(cashProtManager.findByProtocolId(store.getCashProtocolId()));
+        }
         //Could be empty list
         List<Facility> facilities = facilityManager.findFacilitiesByStoreId(storeId);
         storeBo.setStore(store);
